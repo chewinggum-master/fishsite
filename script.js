@@ -39,24 +39,58 @@ async function openCamera() {
   }
 }
 
+function getCoverCrop(sourceWidth, sourceHeight, targetRatio) {
+  const sourceRatio = sourceWidth / sourceHeight;
+
+  if (sourceRatio > targetRatio) {
+    const width = sourceHeight * targetRatio;
+    return {
+      x: (sourceWidth - width) / 2,
+      y: 0,
+      width,
+      height: sourceHeight,
+    };
+  }
+
+  const height = sourceWidth / targetRatio;
+  return {
+    x: 0,
+    y: (sourceHeight - height) / 2,
+    width: sourceWidth,
+    height,
+  };
+}
+
 async function addFlower(source, width, height) {
-  const ratio = Math.min(1, 1800 / Math.max(width, height));
-  canvas.width = Math.round(width * ratio);
-  canvas.height = Math.round(height * ratio);
+  const isVideo = source instanceof HTMLVideoElement;
+  const viewportRatio = window.innerWidth / window.innerHeight;
+  const shouldUseViewportCrop = isVideo && window.innerHeight > window.innerWidth;
+  const crop = shouldUseViewportCrop ? getCoverCrop(width, height, viewportRatio) : null;
+  const outputWidth = crop ? crop.width : width;
+  const outputHeight = crop ? crop.height : height;
+  const ratio = Math.min(1, 1800 / Math.max(outputWidth, outputHeight));
+
+  canvas.width = Math.round(outputWidth * ratio);
+  canvas.height = Math.round(outputHeight * ratio);
 
   const context = canvas.getContext("2d");
-  context.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+  if (crop) {
+    context.drawImage(source, crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height);
+  } else {
+    context.drawImage(source, 0, 0, canvas.width, canvas.height);
+  }
 
   const flower = new Image();
   flower.src = "assets/flower.png";
   await flower.decode();
 
   const isPortrait = canvas.height > canvas.width;
-  const flowerWidth = canvas.width * (isPortrait ? 0.44 : 0.46);
+  const flowerWidth = canvas.width * (isPortrait ? 0.5 : 0.46);
   const flowerHeight = flowerWidth * (flower.height / flower.width);
-  const x = isPortrait ? canvas.width * 0.015 : canvas.width * 0.04;
+  const x = isPortrait ? canvas.width * -0.08 : canvas.width * 0.04;
   const y = isPortrait
-    ? canvas.height - flowerHeight - canvas.height * 0.09
+    ? canvas.height - flowerHeight + canvas.height * 0.025
     : Math.max(0, canvas.height - flowerHeight - canvas.height * 0.02);
 
   context.save();

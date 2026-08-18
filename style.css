@@ -431,16 +431,17 @@ h1 {
   padding: 10px 10px 18px;
   box-shadow: 0 24px 70px rgba(4, 9, 28, 0.38), 0 0 0 1px rgba(255, 238, 177, 0.34);
   transform: rotate(-1.2deg);
-  max-width: 520px;
-  width: min(100%, 520px);
+  display: inline-block;
+  max-width: calc(100vw - 44px);
   margin: 0 auto 36px;
 }
 
 .photo-frame img {
   display: block;
-  width: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   max-height: 55svh;
-  object-fit: contain;
 }
 
 .photo-frame figcaption {
