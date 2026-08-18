@@ -440,7 +440,7 @@ h1 {
   display: block;
   width: 100%;
   max-height: 55svh;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .photo-frame figcaption {
