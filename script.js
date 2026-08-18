@@ -88,9 +88,9 @@ async function addFlower(source, width, height) {
   const isPortrait = canvas.height > canvas.width;
   const flowerWidth = canvas.width * (isPortrait ? 0.5 : 0.46);
   const flowerHeight = flowerWidth * (flower.height / flower.width);
-  const x = isPortrait ? canvas.width * -0.08 : canvas.width * 0.04;
+  const x = isPortrait ? 0 : canvas.width * 0.04;
   const y = isPortrait
-    ? canvas.height - flowerHeight + canvas.height * 0.025
+    ? canvas.height - flowerHeight
     : Math.max(0, canvas.height - flowerHeight - canvas.height * 0.02);
 
   context.save();
