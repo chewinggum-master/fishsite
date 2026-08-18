@@ -52,11 +52,11 @@ async function addFlower(source, width, height) {
   await flower.decode();
 
   const isPortrait = canvas.height > canvas.width;
-  const flowerWidth = canvas.width * (isPortrait ? 0.56 : 0.46);
+  const flowerWidth = canvas.width * (isPortrait ? 0.48 : 0.46);
   const flowerHeight = flowerWidth * (flower.height / flower.width);
-  const x = isPortrait ? canvas.width * -0.08 : canvas.width * 0.04;
+  const x = isPortrait ? canvas.width * -0.12 : canvas.width * 0.04;
   const y = isPortrait
-    ? canvas.height - flowerHeight - canvas.height * 0.015
+    ? canvas.height - flowerHeight - canvas.height * 0.075
     : Math.max(0, canvas.height - flowerHeight - canvas.height * 0.02);
 
   context.save();
