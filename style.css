@@ -35,18 +35,22 @@ button {
   min-height: 100svh;
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 72% 18%, rgba(246, 198, 84, 0.28) 0 10%, transparent 28%),
-    radial-gradient(circle at 18% 78%, rgba(88, 154, 218, 0.32) 0 16%, transparent 38%),
-    linear-gradient(145deg, #081331 0%, #143a7c 48%, #22155d 100%);
+  background: #020835 url("assets/night-sky-bg.png") center / cover no-repeat;
 }
 
 .grain {
   position: fixed;
   inset: 0;
-  opacity: 0.15;
+  opacity: 0.12;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E");
+}
+
+.site-shell::before {
+  content: none;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
 }
 
 .topbar {
@@ -100,22 +104,11 @@ button {
 
 .intro::before,
 .intro::after {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 470px;
-  border: 1px solid rgba(242, 195, 91, 0.28);
-  border-radius: 999px;
-  transform: rotate(42deg);
-  top: 1vh;
-  left: -210px;
+  content: none;
 }
 
 .intro::after {
-  left: auto;
-  right: -235px;
-  top: 22vh;
-  transform: rotate(-35deg);
+  content: none;
 }
 
 .eyebrow {
@@ -155,6 +148,10 @@ h1 {
   gap: 6px;
 }
 
+.actions {
+  margin-top: 34px;
+}
+
 .primary {
   min-width: 210px;
   min-height: 54px;
@@ -169,6 +166,66 @@ h1 {
   text-decoration: none;
   box-shadow: 0 16px 44px rgba(242, 195, 91, 0.28), 0 0 0 1px rgba(255, 238, 177, 0.28) inset;
   cursor: pointer;
+}
+
+.camera-start {
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  border: 1px solid rgba(245, 240, 220, 0.1);
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 20, 52, 0.1);
+  color: #f8f2d8;
+  box-shadow:
+    0 20px 55px rgba(3, 9, 28, 0.18),
+    0 0 30px rgba(255, 255, 255, 0.08) inset;
+  backdrop-filter: blur(18px) saturate(128%);
+  cursor: pointer;
+}
+
+.camera-start:hover {
+  border-color: rgba(245, 240, 220, 0.66);
+  background: rgba(245, 240, 220, 0.08);
+}
+
+.camera-start:active {
+  transform: scale(0.98);
+}
+
+.camera-glyph {
+  width: 20px;
+  height: 15px;
+  position: relative;
+  border: 1.8px solid currentColor;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.camera-glyph::before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 3px;
+  left: 3px;
+  top: -5px;
+  border: 1.8px solid currentColor;
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.camera-glyph::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  left: 6px;
+  top: 3px;
+  border: 1.8px solid currentColor;
+  border-radius: 50%;
+  box-shadow: 8px -2px 0 -3px currentColor;
 }
 
 .primary:active,
