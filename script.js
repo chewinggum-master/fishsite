@@ -51,10 +51,13 @@ async function addFlower(source, width, height) {
   flower.src = "assets/flower.png";
   await flower.decode();
 
-  const flowerWidth = canvas.width * 0.46;
+  const isPortrait = canvas.height > canvas.width;
+  const flowerWidth = canvas.width * (isPortrait ? 0.62 : 0.46);
   const flowerHeight = flowerWidth * (flower.height / flower.width);
-  const x = canvas.width * 0.04;
-  const y = Math.max(0, canvas.height - flowerHeight - canvas.height * 0.02);
+  const x = isPortrait ? canvas.width * -0.18 : canvas.width * 0.04;
+  const y = isPortrait
+    ? canvas.height - flowerHeight + canvas.height * 0.08
+    : Math.max(0, canvas.height - flowerHeight - canvas.height * 0.02);
 
   context.save();
   context.shadowColor = "rgba(32, 22, 24, 0.2)";
