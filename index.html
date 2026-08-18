@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>小魚</title>
-    <meta name="description" content="Open the camera and take a small photo." />
-    <meta property="og:title" content="Qixi Photo" />
-    <meta property="og:description" content="Open the camera and take a small photo." />
+    <meta name="description" content="點開看。" />
+    <meta property="og:title" content="小魚" />
+    <meta property="og:description" content="點開看。" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <link rel="stylesheet" href="style.css" />
@@ -33,35 +33,35 @@
       <section class="camera-screen" data-screen="camera" aria-label="相機畫面">
         <video id="cameraFeed" class="camera-feed" playsinline muted></video>
         <div class="viewfinder" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        <p class="camera-hint">隨便拍拍(直的拜託)</p>
+        <p class="camera-hint" id="cameraHint"></p>
         <div class="camera-controls">
           <button class="small-round" id="closeCamera" type="button" aria-label="返回">×</button>
           <button class="shutter" id="takePhoto" type="button" aria-label="拍照"><span></span></button>
         </div>
         <div class="camera-error" id="cameraError" hidden>
-          <p>相機開不起來，請確認瀏覽器有允許相機權限。</p>
+          <p id="cameraErrorText"></p>
         </div>
       </section>
 
       <section class="screen developing" data-screen="developing">
         <div class="sparkle" aria-hidden="true"></div>
-        <h2>巴拉巴拉</h2>
+        <h2 id="developingText"></h2>
         <div class="loader" aria-hidden="true"><span></span></div>
       </section>
 
       <section class="screen result" data-screen="result">
         <figure class="photo-frame">
           <img id="resultImage" alt="七夕照片" />
-          <figcaption>七夕快樂</figcaption>
+          <figcaption id="photoCaption"></figcaption>
         </figure>
         <div class="reveal-copy">
-          <p class="eyebrow">然後...</p>
+          <p class="eyebrow" id="resultEyebrow"></p>
           <h2></h2>
           <p></p>
         </div>
         <div class="result-actions">
-          <a class="primary" id="downloadPhoto" download="flower-moment.jpg">下載圖片ㄦ</a>
-          <button class="text-button" id="startOver" type="button">重新開始</button>
+          <a class="primary" id="downloadPhoto" download="flower-moment.jpg"></a>
+          <button class="text-button" id="startOver" type="button"></button>
         </div>
       </section>
 

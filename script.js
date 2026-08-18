@@ -7,6 +7,24 @@ const cameraError = document.querySelector("#cameraError");
 
 let stream = null;
 
+const copy = {
+  cameraHint: "隨便拍拍(直的拜託)",
+  cameraError: "相機開不起來，請確認瀏覽器有允許相機權限。",
+  developing: "巴拉巴拉",
+  photoCaption: "七夕快樂",
+  resultEyebrow: "然後...",
+  download: "下載圖片ㄦ",
+  startOver: "重新開始",
+};
+
+document.querySelector("#cameraHint").textContent = copy.cameraHint;
+document.querySelector("#cameraErrorText").textContent = copy.cameraError;
+document.querySelector("#developingText").textContent = copy.developing;
+document.querySelector("#photoCaption").textContent = copy.photoCaption;
+document.querySelector("#resultEyebrow").textContent = copy.resultEyebrow;
+downloadPhoto.textContent = copy.download;
+document.querySelector("#startOver").textContent = copy.startOver;
+
 function showScreen(name) {
   screens.forEach((screen) => {
     screen.classList.toggle("is-active", screen.dataset.screen === name);
