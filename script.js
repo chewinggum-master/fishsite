@@ -4,8 +4,10 @@ const canvas = document.querySelector("#canvas");
 const resultImage = document.querySelector("#resultImage");
 const downloadPhoto = document.querySelector("#downloadPhoto");
 const cameraError = document.querySelector("#cameraError");
+const bgMusic = document.querySelector("#bgMusic");
 
 let stream = null;
+let musicUnlocked = false;
 
 const copy = {
   cameraHint: "隨便拍拍(直的拜託)",
@@ -25,6 +27,31 @@ document.querySelector("#resultEyebrow").textContent = copy.resultEyebrow;
 downloadPhoto.textContent = copy.download;
 document.querySelector("#startOver").textContent = copy.startOver;
 
+bgMusic.volume = 0.42;
+
+async function playMusic() {
+  if (musicUnlocked || !bgMusic) return;
+
+  try {
+    await bgMusic.play();
+    musicUnlocked = true;
+  } catch {
+    // Mobile browsers often block audio until the first user gesture.
+  }
+}
+
+function unlockMusicOnce() {
+  playMusic();
+  window.removeEventListener("pointerdown", unlockMusicOnce);
+  window.removeEventListener("touchstart", unlockMusicOnce);
+  window.removeEventListener("keydown", unlockMusicOnce);
+}
+
+playMusic();
+window.addEventListener("pointerdown", unlockMusicOnce);
+window.addEventListener("touchstart", unlockMusicOnce);
+window.addEventListener("keydown", unlockMusicOnce);
+
 function showScreen(name) {
   screens.forEach((screen) => {
     screen.classList.toggle("is-active", screen.dataset.screen === name);
@@ -38,6 +65,7 @@ function stopCamera() {
 }
 
 async function openCamera() {
+  playMusic();
   showScreen("camera");
   cameraError.hidden = true;
 
@@ -52,7 +80,7 @@ async function openCamera() {
     });
     video.srcObject = stream;
     await video.play();
-  } catch (error) {
+  } catch {
     cameraError.hidden = false;
   }
 }
